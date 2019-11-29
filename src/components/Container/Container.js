@@ -9,7 +9,6 @@ export default styled.div`
   
   ${props => Object.keys(props.theme.gridBreakpoints).map(key => {
     if (props.theme.containerMaxWidths[key]) {
-    console.log(`@media (min-width: ${props.theme.gridBreakpoints[key]}) {max-width: ${props.theme.containerMaxWidths[key]}`);
       return `@media (min-width: ${props.theme.gridBreakpoints[key]}) {max-width: ${props.theme.containerMaxWidths[key]}}`;
     }
     

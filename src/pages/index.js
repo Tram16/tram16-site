@@ -1,43 +1,48 @@
 import React from 'react'
-import { Link, graphql } from 'gatsby'
-import Masonry from 'react-masonry-component'
-import Img from 'gatsby-image'
+import { Link, graphql, StaticQuery } from 'gatsby'
 import Wrapper from '../components/Wrapper';
+import { HelmetDatoCms } from 'gatsby-source-datocms';
+import Container from '../components/Container/Container';
+import Heading from '../components/Heading';
 
-const IndexPage = ({ data }) => (
-  <Wrapper>
-    <Masonry className="showcase">
-      {/*{data.allDatoCmsWork.edges.map(({ node: work }) => (*/}
-      {/*  <div key={work.id} className="showcase__item">*/}
-      {/*    <figure className="card">*/}
-      {/*      <Link to={`/works/${work.slug}`} className="card__image">*/}
-      {/*        <Img fluid={work.coverImage.fluid} />*/}
-      {/*      </Link>*/}
-      {/*      <figcaption className="card__caption">*/}
-      {/*        <h6 className="card__title">*/}
-      {/*          <Link to={`/works/${work.slug}`}>{work.title}</Link>*/}
-      {/*        </h6>*/}
-      {/*        <div className="card__description">*/}
-      {/*          <p>{work.excerpt}</p>*/}
-      {/*        </div>*/}
-      {/*      </figcaption>*/}
-      {/*    </figure>*/}
-      {/*  </div>*/}
-      {/*))}*/}
-    </Masonry>
-  </Wrapper>
-)
+const IndexPage = () => (
+  <StaticQuery
+    query={graphql`
+      query IndexQuery {
+        datoCmsSite {
+          faviconMetaTags {
+            ...GatsbyDatoCmsFaviconMetaTags
+          }
+        }
+        datoCmsHome {
+          seoMetaTags {
+            ...GatsbyDatoCmsSeoMetaTags
+          }
+        }
+      }
+    `}
+    render={data => (
+      <Wrapper>
+        <Container>
+          <HelmetDatoCms
+            favicon={data.datoCmsSite.faviconMetaTags}
+            seo={data.datoCmsHome.seoMetaTags}
+          />
+          <Heading variant="h1">home</Heading>
+
+          <ul className="sidebar__menu">
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/over-ons">About</Link>
+            </li>
+          </ul>
+        </Container>
+      </Wrapper>
+    )}
+  />
+);
 
 export default IndexPage
 
-// export const query = graphql`
-//   query IndexQuery {
-//     allDatoCmsWork(sort: { fields: [position], order: ASC }) {
-//       edges {
-//         node {
-//
-//         }
-//       }
-//     }
-//   }
-// `

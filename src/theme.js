@@ -1,7 +1,8 @@
 export const theme = {
   palette: {
     primary: {
-      main: '#ccc',
+      main: '#444',
+      textColor: '#fff',
     }
   },
   gridBreakpoints: {

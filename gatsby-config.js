@@ -11,8 +11,17 @@ module.exports = {
     {
       resolve: `gatsby-source-datocms`,
       options: {
+        previewMode: true,
         apiToken: process.env.DATO_API_TOKEN,
       },
     },
+    {
+      resolve: 'gatsby-plugin-web-font-loader',
+      options: {
+        google: {
+          families: ['Alata', 'Open Sans']
+        }
+      }
+    }
   ],
 };
