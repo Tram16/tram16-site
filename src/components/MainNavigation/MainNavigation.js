@@ -34,7 +34,7 @@ const NavLink = styled(Link)`
 const MainNavigation = () => {
   return (
     <AppBar>
-      <LogoLink to="/">LOGO</LogoLink>
+      <LogoLink to="/">Tram16</LogoLink>
       <Nav>
         <NavLink to="/over-ons">
           About

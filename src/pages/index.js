@@ -22,24 +22,22 @@ const IndexPage = () => (
       }
     `}
     render={data => (
-      <Wrapper>
-        <Container>
-          <HelmetDatoCms
-            favicon={data.datoCmsSite.faviconMetaTags}
-            seo={data.datoCmsHome.seoMetaTags}
-          />
-          <Heading variant="h1">home</Heading>
+      <Container>
+        <HelmetDatoCms
+          favicon={data.datoCmsSite.faviconMetaTags}
+          seo={data.datoCmsHome.seoMetaTags}
+        />
+        <Heading variant="h1">home</Heading>
 
-          <ul className="sidebar__menu">
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/over-ons">About</Link>
-            </li>
-          </ul>
-        </Container>
-      </Wrapper>
+        <ul className="sidebar__menu">
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/over-ons">About</Link>
+          </li>
+        </ul>
+      </Container>
     )}
   />
 );

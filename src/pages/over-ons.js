@@ -4,6 +4,8 @@ import { HelmetDatoCms } from 'gatsby-source-datocms';
 import { graphql, StaticQuery } from 'gatsby';
 import Heading from '../components/Heading';
 import Container from '../components/Container';
+import Banner from '../components/Banner';
+import Quote from '../components/Quote';
 
 const OverOns = () => {
   return (
@@ -15,24 +17,53 @@ const OverOns = () => {
               ...GatsbyDatoCmsSeoMetaTags
             }
             title
+            blocks {
+              ... on DatoCmsBanner {
+                id
+                title
+                backgroundColor {
+                  hex
+                }
+                image {
+                  fluid(maxWidth: 900, imgixParams: { fm: "jpg", auto: "compress" }) {
+                    ...GatsbyDatoCmsSizes
+                  }
+                }
+              }
+              ... on DatoCmsQuote {
+                id
+                title
+                text
+              }
+            }
           }
         }
       `}
-      render={data => {
-
-        return (
-          <Wrapper>
-            <Container>
+      render={
+        data => {
+          const { blocks, seoMetaTags, title } = data.datoCmsAbout;
+          return (
+            <>
               <HelmetDatoCms
-                seo={data.datoCmsAbout.seoMetaTags}
+                seo={seoMetaTags}
               />
-              <Heading variant="h2">
-                {data.datoCmsAbout.title}
-              </Heading>
-            </Container>
-          </Wrapper>
-        )
-      }}
+              {blocks.map(({ __typename: typeName, ...block }) => {
+                const type = typeName.replace('DatoCms', '').toLowerCase();
+                if (type === 'banner') {
+                  return (
+                    <Banner {...block} />
+                  )
+                }
+                if (type === 'quote') {
+                  return (
+                    <Quote {...block} />
+                  )
+                }
+              })}
+            </>
+          )
+        }
+      }
     />
   );
 };
